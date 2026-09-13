@@ -1,0 +1,37 @@
+{
+    "name": "@klar/website",
+    "version": "0.0.1",
+    "private": true,
+    "description": "Klar website and docs",
+    "type": "module",
+    "scripts": {
+        "dev": "vp dev",
+        "build": "vp build",
+        "preview": "vp preview",
+        "prepare": "svelte-kit sync || echo ''",
+        "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+        "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    },
+    "devDependencies": {
+        "@sveltejs/adapter-static": "^3.0.10",
+        "@sveltejs/kit": "^2.70.3",
+        "@sveltejs/vite-plugin-svelte": "^7.3.0",
+        "@types/bun": "latest",
+        "mdsvex": "^0.12.8",
+        "svelte": "^5.57.0",
+        "svelte-check": "^4.7.6",
+        "typescript": "^7.0.2",
+        "vite": "npm:@voidzero-dev/vite-plus-core@0.3.1",
+        "vite-plus": "0.3.1"
+    },
+    "overrides": {
+        "vite": "npm:@voidzero-dev/vite-plus-core@0.3.1"
+    },
+    "devEngines": {
+        "packageManager": {
+            "name": "bun",
+            "version": "1.4.2",
+            "onFail": "download"
+        }
+    }
+}
