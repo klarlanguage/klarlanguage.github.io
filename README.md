@@ -7,7 +7,11 @@ This repo contains the official Klar website, user documentation, and playground
 This repo uses [Vite+](https://viteplus.dev/) and Bun for development, and [SvelteKit](https://svelte.dev/docs/kit/introduction) as the web framework.
 
 ```sh
-vpx dev # Watch (use --open to open in browser)
+bun install # Install dependencies
+
+vpr dev # Watch (use --open to open in browser)
+vpr build # Build website
+vpr preview # View built website in browser
 ```
 
 ## Contributing
@@ -22,4 +26,4 @@ See the guide to writing documentation in the main repo.
 
 ## License
 
-[MIT](./LICENSE)
+[MIT License](./LICENSE)
