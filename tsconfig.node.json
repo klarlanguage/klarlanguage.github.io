@@ -5,5 +5,5 @@
         "lib": "es2026",
         "target": "es2026"
     },
-    "include": ["vite.config.ts", "scripts"]
+    "include": ["./vite.config.ts", "scripts"]
 }
