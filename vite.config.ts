@@ -1,7 +1,13 @@
 import adapter from '@sveltejs/adapter-static'
 import { sveltekit } from '@sveltejs/kit/vite'
-import { mdsvex } from 'mdsvex'
+import { escapeSvelte, mdsvex } from 'mdsvex'
+import { createHighlighter } from 'shiki'
 import { defineConfig, lazyPlugins } from 'vite-plus'
+
+const highlighter = await createHighlighter({
+    themes: ['github-light', 'github-dark'],
+    langs: ['javascript', 'typescript'],
+})
 
 export default defineConfig({
     // Use oxfmt config from .oxfmtrc.json. We shouldn't have to do this in Vite+; I'll file an issue.
@@ -19,7 +25,31 @@ export default defineConfig({
                     filename.split(/[/\\]/).includes('node_modules') ? undefined : true,
             },
             adapter: adapter({ fallback: '404.html' }),
-            preprocess: [mdsvex({ extensions: ['.svx', '.md'] })],
+            preprocess: [
+                mdsvex({
+                    extensions: ['.svx', '.md'],
+                    smartypants: {
+                        dashes: false, // A custom plugin will be used
+                        ellipses: true,
+                        quotes: true,
+                    },
+                    highlight: {
+                        highlighter(code: string, lang?: string | null): string {
+                            // TODO: Would like to use tree-sitter for highlighting
+                            // instead, especially for Klar
+                            lang ??= 'text'
+                            // https://mdsvex.pngwn.io/docs#with-shiki
+                            const html = escapeSvelte(
+                                highlighter.codeToHtml(code, {
+                                    lang,
+                                    themes: { light: 'github-light', dark: 'frost-dark' },
+                                })
+                            )
+                            return `{@html \`${html}\` }`
+                        },
+                    },
+                }),
+            ],
             extensions: ['.svelte', '.svx', '.md'],
             //@ts-ignore
             paths: { base: process.argv.includes('dev') ? '' : process.env.BASE_PATH },
