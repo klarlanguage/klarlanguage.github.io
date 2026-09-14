@@ -17,6 +17,7 @@ export default defineConfig({
         rules: { 'vite-plus/prefer-vite-plus-imports': 'error' },
         options: { typeAware: true, typeCheck: true },
     },
+    server: { fs: { allow: ['.'] } },
     plugins: lazyPlugins(() => [
         sveltekit({
             compilerOptions: {
@@ -24,10 +25,11 @@ export default defineConfig({
                 runes: ({ filename }) =>
                     filename.split(/[/\\]/).includes('node_modules') ? undefined : true,
             },
+            alias: { '$/': './' },
             adapter: adapter({ fallback: '404.html' }),
             preprocess: [
                 mdsvex({
-                    extensions: ['.svx', '.md'],
+                    extensions: ['.svx', '.md', '.mdx'],
                     smartypants: {
                         dashes: false, // A custom plugin will be used
                         ellipses: true,
@@ -50,7 +52,7 @@ export default defineConfig({
                     },
                 }),
             ],
-            extensions: ['.svelte', '.svx', '.md'],
+            extensions: ['.svelte', '.svx', '.md', '.mdx'],
             //@ts-ignore
             paths: { base: process.argv.includes('dev') ? '' : process.env.BASE_PATH },
         }),

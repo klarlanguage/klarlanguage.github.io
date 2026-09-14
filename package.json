@@ -9,8 +9,9 @@
         "build": "vp build",
         "preview": "vp preview",
         "prepare": "svelte-kit sync || echo ''",
-        "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-        "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+        "check": "svelte-kit sync && svelte-check --tsgo --tsconfig ./tsconfig.json",
+        "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+        "check:klar": "bun run ./scripts/validateKlar.ts"
     },
     "dependencies": {
         "shiki": "^4.4.3"
@@ -20,10 +21,11 @@
         "@sveltejs/kit": "^2.70.3",
         "@sveltejs/vite-plugin-svelte": "^7.3.0",
         "@types/bun": "latest",
+        "@typescript/native": "npm:typescript@7",
         "mdsvex": "^0.12.8",
         "svelte": "^5.57.0",
         "svelte-check": "^4.7.6",
-        "typescript": "^7.0.2",
+        "typescript": "~6",
         "vite": "npm:@voidzero-dev/vite-plus-core@0.3.1",
         "vite-plus": "0.3.1"
     },
