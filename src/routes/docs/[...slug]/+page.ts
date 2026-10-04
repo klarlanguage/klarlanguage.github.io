@@ -1,4 +1,4 @@
-import { loadMarkdownPage } from '$lib/loadMarkdown'
+import { loadMarkdownPage } from '#lib/loadMarkdown.js'
 import type { PageLoad } from './$types'
 
 export const prerender = true

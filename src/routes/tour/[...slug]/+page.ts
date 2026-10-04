@@ -1,6 +1,6 @@
 import { read } from '$app/server'
 import { error } from '@sveltejs/kit'
-import type { MarkdownPage } from '$lib/loadMarkdown'
+import type { MarkdownPage } from '#lib/loadMarkdown.js'
 import type { PageLoad } from './$types'
 
 export const prerender = true

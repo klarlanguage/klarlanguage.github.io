@@ -16,7 +16,7 @@ export async function loadMarkdownPage(baseDir: string, slug: string, url: URL) 
     for (const ext of markdownExtensions) {
         try {
             const { default: content, metadata }: MarkdownPage = await import(
-                `$/${baseDir}/${slug}.${ext}`
+                `#/${baseDir}/${slug}.${ext}`
             )
             return { content, meta: metadata, baseURL: url.origin }
         } catch {
