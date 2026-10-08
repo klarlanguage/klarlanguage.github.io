@@ -1,0 +1,15 @@
+// The explicit type is after the colon, though it isn't required in any of these declarations
+name: String := 'John'
+age: Int := 32
+weight: Float := 86.4
+knowsKlar: Bool := true
+// `hobbies` is inferred to be a list of `String` (more on that later)
+hobbies := ['programming', 'baking', 'volleyball']
+
+// Most of the time, an explicit type can be omitted. Since `name` has type `String`,
+// `myName` will have the same type, so it will be `String`. 
+myName := name
+myName = 'Jane'
+// Since `myName` was declared as a `String`, you can't assign any other type.
+// Uncomment this line to see what error you'll get:
+// myName = age

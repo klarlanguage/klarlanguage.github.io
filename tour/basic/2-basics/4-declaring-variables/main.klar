@@ -1,0 +1,10 @@
+name := 'John'
+print("Hello {name}!")
+
+// Uncomment the line below, and see what error you'll get:
+// name := 'Lucy'
+
+name = 'Jane'
+print("Also hello {name}!")
+
+johnAge, janeAge := 32, 31

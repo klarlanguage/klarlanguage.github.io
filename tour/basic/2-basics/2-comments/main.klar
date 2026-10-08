@@ -1,0 +1,18 @@
+// This is a line comment
+
+/*
+    This is a block comment.
+    I can write things on multiple lines inside here.
+
+    /* And even put block comments inside block comments! /* And another one! */ */
+*/
+
+print('Hello, World!') // A line comment to the side
+
+// ❌ Bad comment:
+// The favorite color is red.
+favoriteColor := 'red'
+print("My favorite color is {favoriteColor}")
+
+// ✅ Good comment:
+// TODO: Ask the user what their favorite color is

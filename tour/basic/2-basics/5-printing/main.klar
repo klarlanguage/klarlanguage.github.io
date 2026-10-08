@@ -1,0 +1,8 @@
+print("Hello World!")
+
+name := 'John'
+print(name)
+
+age := 32
+print(age)
+

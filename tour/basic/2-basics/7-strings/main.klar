@@ -1,0 +1,8 @@
+message := 'The koalas are here.'
+
+person := 'Abigail'
+greeting := "Hello {person}"
+print(greeting)
+
+twoLines := "This is a line in a string.
+    This is another."
