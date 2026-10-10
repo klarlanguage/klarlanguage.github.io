@@ -6,7 +6,7 @@ export interface MarkdownPage {
     metadata: Record<string, any>
 }
 
-const markdownExtensions = ['svx', 'md', 'mdx']
+export const markdownExtensions = ['svx', 'md', 'mdx']
 
 /**
  *
