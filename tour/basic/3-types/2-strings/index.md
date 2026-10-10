@@ -1,4 +1,4 @@
-# Strings
+# Strings 🔠
 
 **Strings** represent text. The text is always in quotes. You can use single `'`, double `"`, or backticks `` ` ``, but you must use the same style on both sides of the text.
 

@@ -1,0 +1,20 @@
+// Int
+age := 32
+print("John in {age} years old")
+print(age == 0b100000) // 100000 is 32 in binary
+
+hash := 0xa8cfb62
+print(hash) // Numbers are always printed in decimal format (0-9)
+
+// Float
+pi := 3.14159
+print("π = {pi}")
+
+// Separate digits with underscores for readability. Recommended for numbers above 10,000.
+oneMillion := 1_000_000
+print("There are over {oneMillion} reasons to learn to code.")
+
+// Numeric literals without an explicit decimal point are inferred as `Int`.
+// This can be changed to a `Float` by annotating an explicit type on the variable.
+worldPopulation: Float := 8_321_188_955
+print("World population: {worldPopulation}+")
