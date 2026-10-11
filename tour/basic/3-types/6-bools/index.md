@@ -1,4 +1,4 @@
-# Booleans ✅❌
+# Booleans
 
 A **boolean** is the value `true` or `false` -- _it can only be one of those two_. They have type `Bool`.
 

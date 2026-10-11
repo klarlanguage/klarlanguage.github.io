@@ -7,7 +7,7 @@
 
 ## Escaping
 
-Sometimes you may want to include special characters in your string. These can be included via escape sequences. Escapes are also required to include your string's quote as text; if your string is double-quoted (`"...`), it can't contain `"` inside it unless you escape it. An escape starts with a backslash (`\`). Klar allows these escape sequences in strings:
+Sometimes you may want to include special characters in your string. These can be included via escape sequences. Escapes are also required to include your string's quote as text; if your string is double-quoted (`"..."`), it can't contain `"` inside it unless you escape it. An escape starts with a backslash (`\`). Klar allows these escape sequences in strings:
 
 - Newline: `\n`
 - Tab: `\t`
@@ -29,4 +29,5 @@ The expression will be converted into a human-readable format. Most data types a
 If you want a literal curly brace in your string, you must escape it like `\{`. You only need to escape the left one.
 
 ## Writing multiple lines
+
 TODO

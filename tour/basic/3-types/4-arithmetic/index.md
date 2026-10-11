@@ -36,3 +36,7 @@ age += 1
 ## Converting numbers
 
 When performing arithmetic operations, both sides must have the same type. Klar doesn't let you add an `Int` and `Float` together; you must convert them so they have the same type. This can be done by calling `Int()` and putting the value of another type in the parentheses to convert it to an `Int`. Similarly, you can also do this with `Float()` to convert an `Int` to a `Float`.
+
+```js
+console.log('hi')
+```
