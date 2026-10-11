@@ -1,5 +1,6 @@
 import { error, redirect } from '@sveltejs/kit'
 import { markdownExtensions, type MarkdownPage } from '#lib/loadMarkdown.js'
+import { getTourData } from '#lib/tour/tourData.ts'
 import type { PageLoad } from './$types'
 
 export const prerender = true
@@ -8,7 +9,10 @@ export interface Slide {
     text: MarkdownPage
     files: Record<string, string>
 
+    /** Within the lesson */
     index: number
+    total: number
+    /** May be in a different lesson */
     previous: SlideReference | null
     next: SlideReference | null
 }
@@ -18,41 +22,17 @@ interface SlideReference {
     slug: string
 }
 
-function makeTourGroups() {
-    const allTourFiles = import.meta.glob('#/tour/*/**', {
-        // So Klar, JS files, and assets are imported as text. Markdown will be imported specially later
-        query: '?raw',
-        import: 'default',
-    })
-    // Group by <basic | advanced>/<unit>/<slide>
-    // unit and slide include the number
-    const orderedLessonGroups = Object.groupBy(Object.entries(allTourFiles), ([path]) => {
-        const parts = path.slice('/tour/'.length).split('/')
-        return parts.slice(0, 3).join('/')
-    })
-    const lessonRegex =
-        /^(?<tour>[\w-]+)\/(?<unitIndex>\d+)-(?<unit>[\w-]+)\/(?<slideIndex>\d+)-(?<slide>[\w-]+)/
-    // Remove the indices from the filesystem path
-    const lessonGroups = Object.fromEntries(
-        Object.entries(orderedLessonGroups).map(([lesson, files]) => {
-            const { tour, _unitIndex, unit, _slideIndex, slide } =
-                lessonRegex.exec(lesson)!.groups!
-            // TODO: Add references to previous and next *slide*
-            return [`${tour}/${unit}/${slide}`, files]
-        })
-    )
-    return lessonGroups
-}
-const lessonGroups = makeTourGroups()
+const { lessons } = getTourData()
 
 export const load: PageLoad<Slide> = async ({ params: { slug }, url: _url }) => {
-    console.log(slug)
-    console.log(lessonGroups)
     slug = slug.replace('/index.html', '')
     const parts = slug.split('/')
-    if (parts[0] != 'basic' && parts[0] != 'advanced') redirect(308, `basic/${slug}`)
+    if (parts[0] != 'basic' && parts[0] != 'advanced')
+        redirect(308, `/tour/basic/${slug}`)
 
-    const lesson = lessonGroups[slug] ?? error(404, `Can't find ${slug}`)
+    const lesson = lessons[slug] ?? error(404, `Can't find ${slug}`)
+    // Within all lessons in all levels
+    // const indexAll = Object.keys(lessons).indexOf(slug)
     const mdFile = lesson.find(([path]) =>
         markdownExtensions.some(ext => path.endsWith(`index.${ext}`))
     )
@@ -69,7 +49,8 @@ export const load: PageLoad<Slide> = async ({ params: { slug }, url: _url }) => 
         text: (await import(mdFile[0])) as MarkdownPage,
         files,
         index: 0,
+        total: 0,
         previous: null,
         next: null,
-    }
+    } satisfies Slide
 }

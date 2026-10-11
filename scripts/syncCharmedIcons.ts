@@ -118,9 +118,9 @@ async function _makeAssociationsList() {
         for (const [key, iconBaseName] of Object.entries(map)) {
             // Only keep the definitions for the icons we picked
             if (
-                fileIconNames.has(iconBaseName) ||
-                (prop == 'folderNames' &&
-                    folderIconNames.has(iconBaseName.replace('folder_', '')))
+                fileIconNames.has(iconBaseName)
+                || (prop == 'folderNames'
+                    && folderIconNames.has(iconBaseName.replace('folder_', '')))
             )
                 newThemesJSON[prop][key] = iconBaseName
         }
