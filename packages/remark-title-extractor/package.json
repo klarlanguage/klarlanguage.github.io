@@ -1,0 +1,5 @@
+{
+    "name": "remark-title-extractor",
+    "type": "module",
+    "module": "plugin.ts"
+}

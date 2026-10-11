@@ -1,11 +1,15 @@
 import adapter from '@sveltejs/adapter-static'
 import { sveltekit } from '@sveltejs/kit/vite'
 import { escapeSvelte, mdsvex } from 'mdsvex'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeCallouts from 'rehype-callouts'
+import rehypeSlug from 'rehype-slug'
 import { createHighlighter } from 'shiki'
 import { defineConfig, lazyPlugins } from 'vite-plus'
+import frostDark from '#lib/assets/syntaxThemes/frost-dark.json' with { type: 'json' }
 
 const highlighter = await createHighlighter({
-    themes: ['github-light', 'github-dark'],
+    themes: ['github-light', frostDark],
     langs: ['javascript', 'typescript'],
 })
 
@@ -14,10 +18,16 @@ export default defineConfig({
     fmt: (await import('./.oxfmtrc.json', { with: { type: 'json' } })) as {},
     lint: {
         jsPlugins: [{ name: 'vite-plus', specifier: 'vite-plus/oxlint-plugin' }],
-        rules: { 'vite-plus/prefer-vite-plus-imports': 'error' },
+        rules: {
+            'vite-plus/prefer-vite-plus-imports': 'error',
+            'unicorn/no-empty-file': 'off',
+            'no-unused-vars': 'off',
+            'no-unused-expressions': 'off',
+        },
         options: { typeAware: true, typeCheck: true },
     },
     server: { fs: { allow: ['.'] } },
+    build: { rolldownOptions: { external: ['bun'] } },
     plugins: lazyPlugins(() => [
         sveltekit({
             compilerOptions: {
@@ -34,19 +44,26 @@ export default defineConfig({
                         ellipses: true,
                         quotes: true,
                     },
+                    // @ts-ignore
+                    rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings, rehypeCallouts],
                     highlight: {
                         highlighter(code: string, lang?: string | null): string {
                             // TODO: Would like to use tree-sitter for highlighting
-                            // instead, especially for Klar
+                            // instead, especially for Klar/Klon
                             lang ??= 'text'
                             // https://mdsvex.pngwn.io/docs#with-shiki
                             const html = escapeSvelte(
-                                highlighter.codeToHtml(code, {
-                                    lang,
-                                    themes: { light: 'github-light', dark: 'frost-dark' },
-                                })
+                                lang == 'klar' || lang == 'klon'
+                                    ? `<pre>${code}</pre>`
+                                    : highlighter.codeToHtml(code, {
+                                          lang,
+                                          themes: {
+                                              light: 'github-light',
+                                              dark: 'Frost Dark',
+                                          },
+                                      })
                             )
-                            return `{@html \`${html}\` }`
+                            return `{@html \`<div class="codeBlock" data-lang="${lang}">${html}</div>\` }`
                         },
                     },
                 }),

@@ -1,0 +1,5 @@
+{
+    "name": "remark-dashes",
+    "type": "module",
+    "module": "plugin.ts"
+}

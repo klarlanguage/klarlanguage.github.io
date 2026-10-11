@@ -8,10 +8,7 @@ export interface MarkdownPage {
 
 export const markdownExtensions = ['svx', 'md', 'mdx']
 
-/**
- *
- * @param baseDir - Relative to the root of the repo
- */
+/** @param baseDir - Relative to the root of the repo */
 export async function loadMarkdownPage(baseDir: string, slug: string, url: URL) {
     for (const ext of markdownExtensions) {
         try {
@@ -19,9 +16,7 @@ export async function loadMarkdownPage(baseDir: string, slug: string, url: URL) 
                 `#/${baseDir}/${slug}.${ext}`
             )
             return { content, meta: metadata, baseURL: url.origin }
-        } catch {
-            return null
-        }
+        } catch {}
     }
     error(404, `Couldn't find ${slug}`)
 }
