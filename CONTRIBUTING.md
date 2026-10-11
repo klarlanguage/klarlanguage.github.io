@@ -2,7 +2,7 @@
 
 We thank you for your interest in contributing to Klar's website!
 
-Contributions should follow our [AI policy](https://github.com/ProCode-Software/klar/blob/main/CONTRIBUTING.md#using-ai) in the main Klar repo.
+**Contributions should follow our [AI policy](https://github.com/ProCode-Software/klar/blob/main/CONTRIBUTING.md#using-ai) in the main Klar repo.**
 
 Quick links to some important topics:
 

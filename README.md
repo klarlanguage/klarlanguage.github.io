@@ -20,9 +20,9 @@ For contributing instructions, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 Quick links:
 
-- [Filing Issues & PRs](<>)
-- [Writing Documentation](<>)
-- [Contributing to the Language Tour](<>)
+- [Filing Issues & PRs](./CONTRIBUTING.md#filing-issues--prs)
+- [Writing Documentation](./CONTRIBUTING.md#writing-documentation)
+- [Contributing to the Language Tour](./CONTRIBUTING.md#language-tour)
 - [AI Policy](https://github.com/ProCode-Software/klar/blob/main/CONTRIBUTING.md#using-ai)
 
 <!--
