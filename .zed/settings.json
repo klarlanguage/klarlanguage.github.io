@@ -37,16 +37,6 @@
                 }
             }
         },
-        "Handlebars": {
-            "format_on_save": "on",
-            "prettier": { "allowed": false },
-            "formatter": {
-                "external": {
-                    "command": "oxfmt",
-                    "arguments": ["--stdin-filepath", "{buffer_path}"]
-                }
-            }
-        },
         "HTML": {
             "format_on_save": "on",
             "prettier": { "allowed": false },
@@ -88,27 +78,7 @@
                 }
             }
         },
-        "JSON5": {
-            "format_on_save": "on",
-            "prettier": { "allowed": false },
-            "formatter": {
-                "external": {
-                    "command": "oxfmt",
-                    "arguments": ["--stdin-filepath", "{buffer_path}"]
-                }
-            }
-        },
         "JSONC": {
-            "format_on_save": "on",
-            "prettier": { "allowed": false },
-            "formatter": {
-                "external": {
-                    "command": "oxfmt",
-                    "arguments": ["--stdin-filepath", "{buffer_path}"]
-                }
-            }
-        },
-        "Less": {
             "format_on_save": "on",
             "prettier": { "allowed": false },
             "formatter": {
@@ -168,15 +138,10 @@
                 }
             }
         },
-        "Vue.js": {
+        "Svelte": {
             "format_on_save": "on",
             "prettier": { "allowed": false },
-            "formatter": {
-                "external": {
-                    "command": "oxfmt",
-                    "arguments": ["--stdin-filepath", "{buffer_path}"]
-                }
-            }
+            "formatter": { "language_server": { "name": "oxfmt" } }
         },
         "YAML": {
             "format_on_save": "on",
