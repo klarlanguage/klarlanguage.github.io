@@ -15,7 +15,7 @@ function getFileIconName(name: string, folder = false): string {
     }
     type Extension = keyof typeof definitions.fileExtensions
     const lastParts = name.split('.').slice(-2)
-    const last2 = lastParts.join('.')
+    const last2 = lastParts.join('.') // Ex: d.ts
     return (
         definitions.fileExtensions[last2 as Extension]
         ?? definitions.fileExtensions[lastParts[1] as Extension]

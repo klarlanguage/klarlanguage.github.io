@@ -21,6 +21,7 @@
     "devDependencies": {
         "@fontsource/jetbrains-mono": "^5.3.0",
         "@fontsource/onest": "^5.3.1",
+        "@fontsource/plus-jakarta-sans": "^5.3.0",
         "@proicons/svelte": "^4.13.7",
         "@sveltejs/adapter-static": "^4.0.0",
         "@sveltejs/kit": "^3.0.1",

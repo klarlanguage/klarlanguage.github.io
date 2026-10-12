@@ -1,4 +1,5 @@
 import unitNames from '#/tour/units.json' with { type: 'json' }
+import { type MarkdownPage, markdownExtensions } from '#lib/loadMarkdown.ts'
 
 export type TourLevel = 'basic' | 'advanced'
 
@@ -43,4 +44,25 @@ export function getTourData(): TourData {
         })
     )
     return { lessons: lessonGroups, units } satisfies TourData
+}
+
+export async function getLessonFiles(
+    lessonFiles: [string, () => Promise<string>][]
+): Promise<{ text: MarkdownPage; files: Map<string, string> }> {
+    const mdFile = lessonFiles.find(([path]) =>
+        markdownExtensions.some(ext => path.endsWith(`index.${ext}`))
+    )
+    if (!mdFile) {
+        const slug = lessonFiles[0][0].split('/').at(-2)
+        throw new Error(`No Markdown file for lesson ${slug}`)
+    }
+
+    const files = new Map<string, string>()
+    for (let [path, file] of lessonFiles) {
+        if (path == mdFile[0]) continue
+        // Only keep the basename and optionally the submodule within the lesson
+        path = path.slice('/tour/'.length).split('/').slice(3).join('/')
+        files.set(path, await file())
+    }
+    return { text: (await import(mdFile[0])) as MarkdownPage, files }
 }

@@ -7,7 +7,7 @@
 
 <ul>
     <li>
-        <a href="basic/" aria-label="Basic tour">
+        <a href="/tour/basic" aria-label="Basic tour">
             <div class="title">Basic tour</div>
             <p>
                 Start here if you're completely new to Klar, or you just want a refresher.
@@ -16,7 +16,7 @@
         </a>
     </li>
     <li>
-        <a href="advanced/" aria-label="Advanced tour">
+        <a href="/tour/advanced" aria-label="Advanced tour">
             <div class="title">Advanced tour</div>
             <p>
                 Continue here after learning the basics of Klar. You'll learn the

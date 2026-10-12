@@ -1,0 +1,52 @@
+/* Fonts */
+/* @import '@fontsource/onest/400';
+@import '@fontsource/onest/500';
+@import '@fontsource/onest/600';
+@import '@fontsource/onest/700'; */
+@import '@fontsource/plus-jakarta-sans/400';
+@import '@fontsource/plus-jakarta-sans/500';
+@import '@fontsource/plus-jakarta-sans/600';
+@import '@fontsource/plus-jakarta-sans/700';
+
+@import '@fontsource/jetbrains-mono/400';
+@import '@fontsource/jetbrains-mono/500';
+@import '@fontsource/jetbrains-mono/600';
+@import '@fontsource/jetbrains-mono/700';
+
+* {
+    box-sizing: border-box;
+}
+:root {
+    --monospace: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+    /*--accent: #00ffaf;*/
+    /*--accent: #5fffaf;*/
+    --accent: #5fff87;
+    color-scheme: light dark;
+}
+html {
+    font-family: 'Plus Jakarta Sans', system-ui;
+    font-size: 16px;
+    accent-color: var(--accent);
+}
+body {
+    margin: 0;
+}
+
+input,
+button,
+textarea,
+::-webkit-file-upload-button {
+    font: inherit;
+}
+a {
+    color: var(--accent);
+    text-decoration-thickness: 1.5px;
+    text-decoration-color: rgba(from var(--accent) r g b / 30%);
+    text-underline-offset: 3px;
+    transition: .25s;
+
+    &:hover {
+        text-decoration-color: var(--accent);
+        text-underline-offset: 5px;
+    }
+}

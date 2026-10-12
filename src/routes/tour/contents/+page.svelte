@@ -2,13 +2,18 @@
 import type { PageProps } from './$types'
 
 const { data: tours }: PageProps = $props()
-const tourNames = { basic: 'Basic', advanced: 'Advanced' } as const
 </script>
+
+<svelte:head>
+    <title>Table of Contents | Klar Language Tour</title>
+</svelte:head>
 
 <h1>Table of Contents</h1>
 
-{#each Object.entries(tourNames) as [levelSlug, levelName]}
+{#each ['Basic', 'Advanced'] as levelName}
+    {@const levelSlug = levelName.toLowerCase()}
     <h2 id={levelSlug}><a href="/tour/{levelSlug}">{levelName}</a></h2>
+    <p><a href="/tour/{levelSlug}/all">View everything in one page</a></p>
     {@const units: (typeof tours)[keyof typeof tours] = tours[levelSlug]}
     <ol>
         {#each units as { title: unitTitle, slug: unitSlug, lessons }}

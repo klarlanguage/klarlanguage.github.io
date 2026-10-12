@@ -15,7 +15,7 @@ const editorOptions: EditorOptions = $derived({
             // When no order is provided, always put 'main.klar' first
             a == 'main.klar' ? -1 : b == 'main.klar' ? 1 : a.localeCompare(b)
         ),
-    files: new Map(Object.entries(files)),
+    files,
 })
 </script>
 

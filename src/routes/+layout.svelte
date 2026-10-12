@@ -1,5 +1,8 @@
 <script lang="ts">
 import favicon from '#lib/assets/favicon.png'
+import SiteFooter from '#lib/components/Layout/SiteFooter.svelte'
+import SiteHeader from '#lib/components/Layout/SiteHeader.svelte'
+import '#lib/index.css'
 
 let { children } = $props()
 </script>
@@ -12,40 +15,20 @@ let { children } = $props()
     <meta
         name="keywords"
         content="javascript, klar, docs, programming language, playground, tour" />
+    <title>Klar Programming Language</title>
 </svelte:head>
 
-<header></header>
-
-{@render children()}
-
-<footer>
-    <p>
-        Made with 💚 and Black Excellence by <a href="https://github.com/ProCode-Software"
-            >ProCode</a>
-    </p>
-    <p>Copyright &copy; {new Date().getFullYear()} ProCode Software</p>
-</footer>
+<div class="layout">
+    <SiteHeader />
+    {@render children()}
+    <SiteFooter />
+</div>
 
 <style>
-@import '@fontsource/onest/400';
-@import '@fontsource/onest/500';
-@import '@fontsource/onest/600';
-@import '@fontsource/onest/700';
-
-@import '@fontsource/jetbrains-mono/400';
-@import '@fontsource/jetbrains-mono/500';
-@import '@fontsource/jetbrains-mono/600';
-@import '@fontsource/jetbrains-mono/700';
-
-:global(*) {
-    box-sizing: border-box;
-}
-:global(html) {
-    font-family: 'Onest', system-ui;
-    font-size: 16px;
-    --monospace: 'JetBrains Mono', 'Fira Code', monospace;
-}
-:global(input, button, textarea, ::-webkit-file-upload-button) {
-    font: inherit;
+.layout {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+    min-height: 100%;
 }
 </style>
