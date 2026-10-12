@@ -1,1 +1,16 @@
-[]
+{
+    "Overview": "index",
+    "Guides": { "base": "guides", "items": {} },
+    "Standard library": "standard-library",
+    "Tools": {
+        "items": {
+            "Test runner": "klartest",
+            "Linter": "klarlint",
+            "Language server": "klarls",
+            "Formatter": "klarformat"
+        }
+    },
+    "Glas": { "base": "js", "items": { "Commands": { "items": {} } } },
+    "Klar & JavaScript": { "base": "js", "items": {} },
+    "CLI commands": { "base": "cli", "items": {} }
+}
