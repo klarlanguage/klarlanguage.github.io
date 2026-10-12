@@ -47,6 +47,7 @@ const fileIconNames = new Set([
     'html',
     'css',
     'git',
+    'license',
     'klar', // Custom
 ])
 
