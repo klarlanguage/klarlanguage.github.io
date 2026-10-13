@@ -1,4 +1,4 @@
-import { getTourData, type TourLevel } from '#lib/tour/tourData.ts'
+import { getTourData, type TourLevel } from '../tourData'
 import type { PageLoad } from './$types'
 
 export const prerender = true

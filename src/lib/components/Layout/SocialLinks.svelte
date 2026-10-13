@@ -1,24 +1,21 @@
 <script>
-import * as socialLinks from '#lib/socialLinks.ts'
 import { BlueskyIcon, GitHubIcon, XTwitterIcon } from '@proicons/svelte'
+import * as socialLinks from '#lib/socialLinks.ts'
 </script>
 
 <ul class="social-links">
     <li>
         <a href={socialLinks.github} title="Follow us on GitHub: @klarlanguage"
-            ><GitHubIcon /></a
-        >
+            ><GitHubIcon /></a>
     </li>
     <li>
         <a
             href={socialLinks.bluesky}
-            title="Follow us on Bluesky: @klarlanguage.bsky.social"><BlueskyIcon /></a
-        >
+            title="Follow us on Bluesky: @klarlanguage.bsky.social"><BlueskyIcon /></a>
     </li>
     <li>
         <a href={socialLinks.twitter} title="Follow us on X/Twitter: @KlarLanguage"
-            ><XTwitterIcon /></a
-        >
+            ><XTwitterIcon /></a>
     </li>
 </ul>
 

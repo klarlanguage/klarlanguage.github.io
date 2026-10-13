@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit'
-import { getLessonFiles, getTourData, type TourData } from '#lib/tour/tourData.ts'
+import { getLessonFiles, getTourData } from '../../tourData'
 import type { MarkdownPage } from '#lib/loadMarkdown.ts'
 import type { PageLoad } from './$types'
 

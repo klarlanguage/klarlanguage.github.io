@@ -3,7 +3,7 @@ import type { Component } from 'svelte'
 
 export interface MarkdownPage {
     default: Component<object, object, ''>
-    metadata: Record<string, any>
+    metadata?: Record<string, any>
 }
 
 export const markdownExtensions = ['svx', 'md', 'mdx']

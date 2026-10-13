@@ -1,21 +1,25 @@
 <script lang="ts">
 import { ChevronLeftIcon, ChevronRightIcon } from '@proicons/svelte'
+import { SvelteMap } from 'svelte/reactivity'
 import Editor from '#lib/components/Editor/Editor.svelte'
 import type { EditorOptions } from '#lib/components/Editor/options.ts'
 import type { PageProps } from './$types'
 
 let { data: slide, params }: PageProps = $props()
-const { text, files } = $derived(slide)
-const tutorialLevel = $derived(params.slug.slice(0, params.slug.indexOf('/')))
+const { text, files, previous, next } = $derived(slide)
+const [tutorialLevel] = $derived(params.slug.split('/', 1))
 
 const editorOptions: EditorOptions = $derived({
-    openFiles:
-        (text.metadata?.openFiles as string[])
-        ?? Object.keys(files).sort((a, b) =>
-            // When no order is provided, always put 'main.klar' first
-            a == 'main.klar' ? -1 : b == 'main.klar' ? 1 : a.localeCompare(b)
-        ),
-    files,
+    openFiles: new SvelteMap(
+        (
+            (text.metadata?.openFiles as string[])
+            ?? Object.keys(files).sort((a, b) =>
+                // When no order is provided, always put 'main.klar' first
+                a == 'main.klar' ? -1 : b == 'main.klar' ? 1 : a.localeCompare(b)
+            )
+        ).map(path => [path, true])
+    ),
+    files: new SvelteMap(files.entries()),
 })
 </script>
 
@@ -25,19 +29,36 @@ const editorOptions: EditorOptions = $derived({
 
 <div class="container">
     <div class="body">
+        <div class="breadcrumbs"></div>
         <text.default />
         <footer>
-            <a href="#previous">
-                <button><ChevronLeftIcon /> Previous</button>
-            </a>
+            <div>
+                {#if previous}
+                    <a href="/tour/{previous.slug}">
+                        <button class="previous">
+                            <ChevronLeftIcon />
+                            <span class="subtitle">Previous</span>
+                            <span class="label">{previous.title}</span>
+                        </button>
+                    </a>
+                {/if}
+            </div>
             <a href="/tour/contents#{tutorialLevel}" aria-label="Go to table of contents"
                 >Contents</a>
-            <a href="#previous">
-                <button> Next <ChevronRightIcon /></button>
-            </a>
+            <div>
+                {#if next}
+                    <a href="/tour/{next.slug}">
+                        <button class="next">
+                            <span class="subtitle">Next</span>
+                            <span class="label"></span>
+                            <ChevronRightIcon />
+                        </button>
+                    </a>
+                {/if}
+            </div>
         </footer>
     </div>
-    <Editor options={editorOptions} />
+    <Editor {...editorOptions} />
 </div>
 
 <style>

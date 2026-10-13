@@ -1,6 +1,6 @@
 import { error, redirect } from '@sveltejs/kit'
+import { getLessonFiles, getTourData } from '../tourData'
 import { type MarkdownPage } from '#lib/loadMarkdown.js'
-import { getLessonFiles, getTourData } from '#lib/tour/tourData.ts'
 import type { PageLoad } from './$types'
 
 export const prerender = true
@@ -9,10 +9,7 @@ export interface Slide {
     text: MarkdownPage
     files: Map<string, string>
 
-    /** Within the lesson */
-    index: number
-    total: number
-    /** May be in a different lesson */
+    /** May be in a different unit */
     previous: SlideReference | null
     next: SlideReference | null
 }
@@ -39,9 +36,30 @@ export const load: PageLoad<Slide> = async ({ params: { slug }, url: _url }) => 
     // const indexAll = Object.keys(lessons).indexOf(slug)
     return {
         ...(await getLessonFiles(lesson)),
-        index: 0,
-        total: 0,
-        previous: null,
-        next: null,
+        ...(await getPrevNextLessons(slug, parts[0])),
     } satisfies Slide
+}
+
+async function getPrevNextLessons(slug: string, level: string) {
+    const slugs = Object.keys(lessons)
+
+    let previous: SlideReference | null = null,
+        next: SlideReference | null = null
+
+    const i = slugs.indexOf(slug)
+    if (i > 0) {
+        const prevSlug = slugs[i - 1]
+        const [prevLevel] = prevSlug.split('/', 1)
+        const { text } = await getLessonFiles(lessons[prevSlug])
+        if (prevLevel == level)
+            previous = { slug: prevSlug, title: text.metadata?.title || '' }
+    }
+    if (i < slugs.length - 1) {
+        const nextSlug = slugs[i + 1]
+        const [nextLevel] = nextSlug.split('/', 1)
+        const { text } = await getLessonFiles(lessons[nextSlug])
+        if (nextLevel == level)
+            next = { slug: nextSlug, title: text.metadata?.title || '' }
+    }
+    return { previous, next }
 }

@@ -22,7 +22,10 @@ export default defineConfig({
             'vite-plus/prefer-vite-plus-imports': 'error',
             'unicorn/no-empty-file': 'off',
             'no-unused-vars': 'off',
-            'no-unused-expressions': 'off',
+            'no-unused-expressions': [
+                'warn',
+                { allowShortCircuit: true, allowTernary: true },
+            ],
         },
         options: { typeAware: true, typeCheck: true },
     },

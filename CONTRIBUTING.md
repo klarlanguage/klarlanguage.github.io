@@ -70,9 +70,6 @@ author: ProCode
 tags: Uncategorized
 # Optional, but recommended. Displayed under the title.
 description: ''
-# An optional image to show for the post. Can be an online URL, or a file path
-# relative to the file. Leave blank to use the default image.
-image: ''
 ```
 
 ## Validating Klar Snippets

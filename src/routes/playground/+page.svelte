@@ -1,4 +1,5 @@
 <script>
+import { SvelteMap } from 'svelte/reactivity'
 import Editor from '#lib/components/Editor/Editor.svelte'
 </script>
 
@@ -7,7 +8,5 @@ import Editor from '#lib/components/Editor/Editor.svelte'
 </svelte:head>
 
 <Editor
-    options={{
-        files: new Map([['main.klar', "print('Hello, World!')\n"]]),
-        openFiles: ['main.klar'],
-    }} />
+    files={new SvelteMap([['main.klar', "print('Hello, World!')\n"]])}
+    openFiles={new SvelteMap([['main.klar', true]])} />

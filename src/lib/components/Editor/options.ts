@@ -1,4 +1,6 @@
+import type { SvelteMap } from 'svelte/reactivity'
+
 export interface EditorOptions {
-    files: Map<string, string>
-    openFiles: string[]
+    files: SvelteMap<string, string>
+    openFiles: SvelteMap<string, true>
 }

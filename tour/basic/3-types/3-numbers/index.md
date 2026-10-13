@@ -14,7 +14,7 @@ Integers can also be written in hexadecimal using the `0x` prefix followed by he
 
 The `Float` type represents a decimal number. Float literals are indicated by a decimal point (`.`). They must be written with numbers to both sides of the decimal (`2.` and `.5` aren't allowed; write `2.0` and `0.5` instead)
 
-They are stored as 64-bit, with a maximum value of 1.7976931348623157 * 10<sup>308</sup>, and a minimum of 5 * 10<sup>-324</sup>.
+They are stored as 64-bit, with a maximum value of 1.7976931348623157 \* 10<sup>308</sup>, and a minimum of 5 \* 10<sup>-324</sup>.
 
 ## Separators
 

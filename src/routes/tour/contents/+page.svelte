@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { PageProps } from './$types'
+import type { PageData, PageProps } from './$types'
 
 const { data: tours }: PageProps = $props()
 </script>
@@ -14,7 +14,7 @@ const { data: tours }: PageProps = $props()
     {@const levelSlug = levelName.toLowerCase()}
     <h2 id={levelSlug}><a href="/tour/{levelSlug}">{levelName}</a></h2>
     <p><a href="/tour/{levelSlug}/all">View everything in one page</a></p>
-    {@const units: (typeof tours)[keyof typeof tours] = tours[levelSlug]}
+    {@const units = tours[levelSlug as 'basic' | 'advanced']}
     <ol>
         {#each units as { title: unitTitle, slug: unitSlug, lessons }}
             <li>

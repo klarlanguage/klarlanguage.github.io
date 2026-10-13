@@ -39,7 +39,6 @@ export function getTourData(): TourData {
                 title: unitNames[tour as TourLevel][+unitIndex - 1],
                 slug: unit,
             }
-            // TODO: Add references to previous and next *slide*
             return [`${tour}/${unit}/${slide}`, files!]
         })
     )
@@ -50,7 +49,7 @@ export async function getLessonFiles(
     lessonFiles: [string, () => Promise<string>][]
 ): Promise<{ text: MarkdownPage; files: Map<string, string> }> {
     const mdFile = lessonFiles.find(([path]) =>
-        markdownExtensions.some(ext => path.endsWith(`index.${ext}`))
+        markdownExtensions.some(ext => path.endsWith(`/index.${ext}`))
     )
     if (!mdFile) {
         const slug = lessonFiles[0][0].split('/').at(-2)

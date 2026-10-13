@@ -4,6 +4,7 @@ import definitions from '#lib/assets/fileIcons/definitions.json' with { type: 'j
 const { name, folder = false }: { name: string; folder?: boolean } = $props()
 
 function getFileIconName(name: string, folder = false): string {
+    name = name.toLowerCase()
     if (folder) {
         return (
             definitions.folderNames[name as keyof typeof definitions.folderNames]
