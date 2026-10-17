@@ -4,4 +4,4 @@ import type { PageProps } from './$types'
 let { data }: PageProps = $props()
 </script>
 
-<data.content />
+<data.text.default />

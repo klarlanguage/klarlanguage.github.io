@@ -7,9 +7,9 @@ export interface PostMetadata {
     description?: string
 }
 
-export function getPostAuthors({
-    author,
-}: PostMetadata): { name: string; url: string }[] {
+export function parsePostAuthors(
+    author: string | string[]
+): { name: string; url: string }[] {
     return (typeof author == 'string' ? [author] : author).map(name => {
         const url = (authors as Record<string, string>)[name]
         if (!url) throw new Error(`Author '${name}' not defined in authors.json`)

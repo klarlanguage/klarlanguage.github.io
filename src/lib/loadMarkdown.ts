@@ -9,14 +9,13 @@ export interface MarkdownPage {
 export const markdownExtensions = ['svx', 'md', 'mdx']
 
 /** @param baseDir - Relative to the root of the repo */
-export async function loadMarkdownPage(baseDir: string, slug: string, url: URL) {
+export async function loadMarkdownPage(
+    files: Record<string, () => Promise<MarkdownPage>>,
+    slug: string
+) {
     for (const ext of markdownExtensions) {
-        try {
-            const { default: content, metadata }: MarkdownPage = await import(
-                `#/${baseDir}/${slug}.${ext}`
-            )
-            return { content, meta: metadata, baseURL: url.origin }
-        } catch {}
+        const page = files[`./${slug}.${ext}`]
+        if (page) return await page()
     }
     error(404, `Couldn't find ${slug}`)
 }

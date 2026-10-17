@@ -16,12 +16,12 @@ export const load: PageLoad = async ({ params: { level } }) => {
     const { lessons, units } = getTourData()
     const allUnits: AllUnits = {}
 
-    for (const lesson in lessons) {
-        const [lessonLevel, unitSlug, lessonSlug] = lesson.split('/')
+    for (const fullSlug in lessons) {
+        const [lessonLevel, unitSlug, lessonSlug] = fullSlug.split('/')
         if (lessonLevel == level)
             (allUnits[unitSlug] ??= new Map()).set(
                 lessonSlug,
-                await getLessonFiles(lessons[lesson])
+                await getLessonFiles(fullSlug, lessons[fullSlug])
             )
     }
     const unitTitles = new Map(units[level].map(({ slug, title }) => [slug, title]))

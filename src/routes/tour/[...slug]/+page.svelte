@@ -13,13 +13,14 @@ const editorOptions: EditorOptions = $derived({
     openFiles: new SvelteMap(
         (
             (text.metadata?.openFiles as string[])
-            ?? Object.keys(files).sort((a, b) =>
+            ?? [...files.keys()].sort((a, b) =>
                 // When no order is provided, always put 'main.klar' first
                 a == 'main.klar' ? -1 : b == 'main.klar' ? 1 : a.localeCompare(b)
             )
         ).map(path => [path, true])
     ),
-    files: new SvelteMap(files.entries()),
+    files: new SvelteMap(files),
+    enableFeatures: { share: false, sync: false },
 })
 </script>
 
@@ -50,7 +51,7 @@ const editorOptions: EditorOptions = $derived({
                     <a href="/tour/{next.slug}">
                         <button class="next">
                             <span class="subtitle">Next</span>
-                            <span class="label"></span>
+                            <span class="label">{next.title}</span>
                             <ChevronRightIcon />
                         </button>
                     </a>
@@ -65,15 +66,25 @@ const editorOptions: EditorOptions = $derived({
 .container {
     width: 100%;
     display: grid;
-    grid-template:
-        'text editor editor' 60%
-        'text explorer output' 40%
-        / 50% 15% auto;
-}
-.body {
-    grid-area: text;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+
+    footer {
+        display: grid;
+        grid-template-columns: 33% auto 33%;
+        gap: 15px;
+        justify-content: space-between;
+        align-items: center;
+
+        button {
+            width: 100%;
+        }
+    }
 }
 :global(.Editor) {
-    grid-area: editor;
+    grid-template:
+        'editor editor' 60%
+        'explorer output' 40%
+        / clamp(100px, 30%, 200px) 1fr !important;
 }
 </style>

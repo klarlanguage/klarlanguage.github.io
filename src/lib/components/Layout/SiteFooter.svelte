@@ -39,8 +39,8 @@ import SocialLinks from './SocialLinks.svelte'
     <ul class="about">
         <span>About</span>
         <li><a href="/docs/about/why-klar">Why Klar?</a></li>
-        <li><a href="/docs/about">About</a></li>
         <li><a href="/docs/about/faq">Frequently asked questions</a></li>
+        <li><a href="https://github.com/ProCode-Software">ProCode Software</a></li>
     </ul>
 
     <div class="message">
@@ -48,7 +48,8 @@ import SocialLinks from './SocialLinks.svelte'
             >ProCode</a>
     </div>
     <div class="copyright">
-        Copyright &copy; {new Date().getFullYear()} ProCode Software
+        Copyright &copy; {new Date().getFullYear()}
+        <a href="https://github.com/ProCode-Software">ProCode Software</a>
     </div>
     <SocialLinks />
 </footer>

@@ -1,8 +1,12 @@
-import { loadMarkdownPage } from '#lib/loadMarkdown.js'
+import { loadMarkdownPage, type MarkdownPage } from '#lib/loadMarkdown.js'
 import type { PageLoad } from './$types'
 
 export const prerender = true
 
-export const load: PageLoad = async ({ params: { slug }, url }) => {
-    return await loadMarkdownPage('docs', slug, url)
+const blogPages = import.meta.glob<MarkdownPage>('#/docs/**/*.{md,mdx,svx}', {
+    base: '/docs',
+})
+
+export const load: PageLoad = async ({ params: { slug } }) => {
+    return { text: await loadMarkdownPage(blogPages, slug) }
 }

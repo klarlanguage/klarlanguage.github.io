@@ -1,5 +1,5 @@
 <script lang="ts">
-import { FileAddIcon } from '@proicons/svelte'
+import { DeleteIcon, FileAddIcon } from '@proicons/svelte'
 import { SvelteMap } from 'svelte/reactivity'
 import FileIcon from './FileIcon.svelte'
 
@@ -22,21 +22,21 @@ interface Entry {
 }
 // Adapted from https://stackoverflow.com/a/59049749
 const root = $derived(
-    files.keys().reduce(
+    files.keys().reduce<Entry>(
         (root, path) => {
             path.split('/').reduce((parent, name) => {
-                var nextParent = parent.items?.find(q => q.name === name)
+                var nextParent = parent.items?.find(item => item.name === name)
                 if (!nextParent) (parent.items ??= []).push((nextParent = { name }))
                 return nextParent
             }, root)
             return root
         },
-        { name: '', items: [] } satisfies Entry
+        { name: '', items: [] }
     )
 )
 
 function createFile() {
-    let name = prompt(`File path:`)
+    let name = prompt('File path:')
     if (!name?.trim().length) return
 
     // These 2 replaceAll calls are faster than 1 replaceAll with a regex
@@ -52,12 +52,26 @@ function createFile() {
     files.set(name, '')
     onopen(name)
 }
+
+let explorer: Element
+$effect(() => {
+    // Expand the parents of the file in the tree
+    const node = explorer.querySelector(`[data-file=${JSON.stringify(activeFile)}]`)
+    let parentDetails = node!.closest('details')
+    while (parentDetails != null && explorer.contains(parentDetails)) {
+        const curr = parentDetails
+        parentDetails.open = true
+        parentDetails = parentDetails.parentElement?.closest('details') ?? null
+        if (parentDetails == curr) break
+    }
+})
 </script>
 
-<div class="explorer">
+<div class="explorer" bind:this={explorer}>
     <div class="toolbar">
         <span class="panelTitle">Files</span>
-        <button title="New file..." onclick={() => createFile()}><FileAddIcon /></button>
+        <button title="New file..." onclick={() => createFile()}
+            ><FileAddIcon size={20} /></button>
     </div>
     {@render folder(root, '')}
 
@@ -73,11 +87,10 @@ function createFile() {
             {#if file.items}
                 <details>
                     <summary>
-                        <button aria-label={file.name}>
+                        <div aria-label={file.name} class="item">
                             <FileIcon name={file.name} folder={true} />
                             {file.name}
-                            <!-- TODO: Hover controls (add item, delete) -->
-                        </button>
+                        </div>
                     </summary>
                     {@render folder(file, parentDir)}
                 </details>
@@ -85,13 +98,68 @@ function createFile() {
                 {@const filePath = `${parentDir}/${file.name}`.replace(/^\/+/, '')}
                 <button
                     aria-label={file.name}
-                    class={{ selected: activeFile == filePath }}
-                    onclick={() => onopen(filePath)}>
+                    class={['item', { selected: activeFile == filePath }]}
+                    onclick={() => onopen(filePath)}
+                    data-file={filePath}>
                     <FileIcon name={file.name} />
                     {file.name}
-                    <!-- TODO: Hover controls (delete) -->
+                    <!-- svelte-ignore a11y_missing_attribute -->
+                    <a
+                        role="button"
+                        tabindex="0"
+                        onclick={() => ondelete(filePath)}
+                        onkeyup={() => ondelete(filePath)}
+                        title="Delete file"
+                        class="deleteAction">
+                        <DeleteIcon size={20} />
+                    </a>
                 </button>
             {/if}
         </li>
     {/snippet}
 </div>
+
+<style>
+.explorer .toolbar {
+    padding: 10px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.explorer ul {
+    list-style-type: none;
+    padding: 0 5px;
+    margin: 0;
+}
+.item {
+    width: 100%;
+    background: none;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    border-radius: 10px;
+    position: relative;
+
+    &.selected {
+        color: var(--accent);
+        font-weight: 500px;
+    }
+    .deleteAction {
+        position: absolute;
+        right: 10px;
+        opacity: 0;
+        color: initial;
+        transition:
+            opacity 0.25s,
+            background 0.15s;
+    }
+    &:hover .deleteAction {
+        opacity: 1;
+    }
+}
+
+summary {
+    display: block;
+}
+</style>

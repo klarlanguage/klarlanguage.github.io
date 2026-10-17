@@ -10,9 +10,30 @@ const lang = $derived(file.slice(file.lastIndexOf('.') + 1))
 
 <div class="EditorBuffer">
     <textarea
-        style="width: 100%; font: 16px var(--monospace);"
-        rows="15"
+        spellcheck="false"
         bind:value={content}
+        name="code"
         oninput={() => oninput?.(content)}></textarea>
     <div class="highlight"></div>
 </div>
+
+<style>
+.EditorBuffer {
+    height: 100%;
+}
+
+textarea {
+    position: relative;
+    width: 100%;
+    font: 16px var(--monospace);
+    background: none;
+    border: none;
+    outline: none;
+    resize: none;
+    height: 100%;
+}
+.highlight {
+    position: absolute;
+    font: 16px var(--monospace);
+}
+</style>

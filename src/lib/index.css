@@ -50,3 +50,18 @@ a {
         text-underline-offset: 5px;
     }
 }
+
+/* Keep buttons plain by default. Styled buttons should have the .actionBtn class */
+button {
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    padding: 5px;
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    transition: background 0.15s;
+    cursor: pointer;
+}

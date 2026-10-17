@@ -32,10 +32,8 @@ export const load: PageLoad<Slide> = async ({ params: { slug }, url: _url }) => 
     }
 
     const lesson = lessons[slug] ?? error(404, `Can't find ${slug}`)
-    // Within all lessons in all levels
-    // const indexAll = Object.keys(lessons).indexOf(slug)
     return {
-        ...(await getLessonFiles(lesson)),
+        ...(await getLessonFiles(slug, lesson)),
         ...(await getPrevNextLessons(slug, parts[0])),
     } satisfies Slide
 }
@@ -50,14 +48,14 @@ async function getPrevNextLessons(slug: string, level: string) {
     if (i > 0) {
         const prevSlug = slugs[i - 1]
         const [prevLevel] = prevSlug.split('/', 1)
-        const { text } = await getLessonFiles(lessons[prevSlug])
+        const { text } = await getLessonFiles(prevSlug, lessons[prevSlug])
         if (prevLevel == level)
             previous = { slug: prevSlug, title: text.metadata?.title || '' }
     }
     if (i < slugs.length - 1) {
         const nextSlug = slugs[i + 1]
         const [nextLevel] = nextSlug.split('/', 1)
-        const { text } = await getLessonFiles(lessons[nextSlug])
+        const { text } = await getLessonFiles(nextSlug, lessons[nextSlug])
         if (nextLevel == level)
             next = { slug: nextSlug, title: text.metadata?.title || '' }
     }
