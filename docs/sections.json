@@ -12,5 +12,9 @@
     },
     "Glas": { "base": "js", "items": { "Commands": { "items": {} } } },
     "Klar & JavaScript": { "base": "js", "items": {} },
-    "CLI commands": { "base": "cli", "items": {} }
+    "CLI commands": { "base": "cli", "items": {} },
+    "About Klar": {
+        "base": "about",
+        "items": { "Why Klar?": "why-klar", "Frequently asked questions": "faq" }
+    }
 }
