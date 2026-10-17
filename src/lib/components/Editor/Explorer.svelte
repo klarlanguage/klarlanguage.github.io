@@ -130,6 +130,10 @@ $effect(() => {
     list-style-type: none;
     padding: 0 5px;
     margin: 0;
+
+    &:not(.explorer > ul) {
+        margin-left: 5px;
+    }
 }
 .item {
     width: 100%;

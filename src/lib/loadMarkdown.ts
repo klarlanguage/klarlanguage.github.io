@@ -12,7 +12,7 @@ export const markdownExtensions = ['svx', 'md', 'mdx']
 export async function loadMarkdownPage(
     files: Record<string, () => Promise<MarkdownPage>>,
     slug: string
-) {
+): Promise<MarkdownPage> {
     for (const ext of markdownExtensions) {
         const page = files[`./${slug}.${ext}`]
         if (page) return await page()

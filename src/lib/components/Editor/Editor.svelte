@@ -77,7 +77,7 @@ function deleteFile(path: string) {
 <style>
 .Editor {
     display: grid;
-    grid-template: 'explorer' 'editor' 'output' / 15% 1fr 1fr;
+    grid-template: 'explorer editor output' / 15% 1fr 1fr;
     grid-template-rows: 1fr 1fr;
 }
 .textContainer {

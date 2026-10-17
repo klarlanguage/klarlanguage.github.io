@@ -52,7 +52,6 @@ export function getTourData(): TourData {
 
 function getTourMarkdownFiles() {
     const tourMdFiles = import.meta.glob('#/tour/*/**/index.{md,svx,mdx}', {
-        import: 'default',
         base: '/tour',
     }) as Record<string, () => Promise<MarkdownPage>>
 
